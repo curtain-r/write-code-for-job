@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <a></a>
+  <p></p>
+  <script>
+    // 0 创建DOM元素
+    let Dom = document.createElement('p', { id: 'test' });
+
+    //  // 1. 获取DOM节点
+    let aNode = document.querySelector('a');
+    let pNode = document.getElementsByTagName('p')[0];
+    let getDom = document.getElementById('test');
+    // 2. 更新DOM节点的文本内容,修改属性
+    aNode.textContent = "hello DOM";
+    aNode.href = "https://www.baidu.com";
+    pNode.textContent = "study DOM";
+    // 3 创建并放置新节点
+    let newNode = document.createElement('div');
+    newNode.textContent = 'js created';
+    let text = document.createTextNode('js created TextNode');
+    aNode.appendChild(text);
+    pNode.appendChild(newNode);
+    // 4 移除和删除元素
+    aNode.removeChild(text);
+    pNode.removeChild(newNode);
+    console.log(Dom);
+    // 5 操作样式
+    aNode.style.color = 'red';
+    aNode.style['color'] = 'green';
+
+    // 0 BOM操作
+    // 1 获取当前窗口宽高
+    console.log(window.innerHeight, window.innerWidth);
+    // 2 window.onresize监听窗口大小的改变
+    window.onresize = function () {
+      // 窗口改变是发生的操作
+    }
+
+  </script>
+</body>
+
+</html>

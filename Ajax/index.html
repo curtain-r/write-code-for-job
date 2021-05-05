@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button id="button">ok</button>
+  <script>
+    let ajax = (url) => {
+      let xhr;
+      if (XMLHttpRequest) {
+        xhr = new XMLHttpRequest();
+      } else {
+        xhr = new ActiveXObject();
+      }
+      xhr.open("GET", url, true);
+      xhr.send();
+      xhr.onreadystatechange = () => {
+        if (xhr.status === 200 && xhr.readyState === 4) {
+          console.log(xhr.response);
+        }
+      }
+    }
+    document.getElementById('button').addEventListener('click', () => {
+      ajax('http://127.0.0.1:3000');
+    })
+    function handleResponse(response) {
+      console.log('aaaaa')
+      console.log(response)
+    }
+  </script>
+  <script src="http://127.0.0.1:3000?callback=handleResponse"></script>
+</body>
+
+</html>

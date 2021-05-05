@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button id="button">jjdjf</button>
+  <iframe id='iframe' width="800px" height="600px" src="./b.html"></iframe>
+  <script>
+    document.getElementById('button').addEventListener('click', () => {
+      let iframe = document.getElementById('iframe');
+      let win = iframe.contentWindow;
+      win.postMessage("a.html给你说你好");
+    })
+  </script>
+</body>
+
+</html>

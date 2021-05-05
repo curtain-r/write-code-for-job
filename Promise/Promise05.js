@@ -5,7 +5,6 @@ const REJECTED = 'rejected';
 class Promise {
 	constructor(executor) {
 		this.status = PENDING;
-
 		this.onFulfilledCallback = [];
 		this.onRejectedCallback = [];
 
@@ -16,7 +15,6 @@ class Promise {
 				this.onFulfilledCallback.forEach(callback => callback());
 			}
 		}
-
 		let reject = reason => {
 			if (this.status === PENDING) {
 				this.status = REJECTED;
@@ -31,6 +29,7 @@ class Promise {
 			reject(e);
 		}
 	}
+
 	then(onFulfilled, onRejected) {
 		onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : value => value;
 		onRejected = typeof onRejected === 'function' ? onRejected : reason => { throw reason };
@@ -40,8 +39,8 @@ class Promise {
 				setTimeout(() => {
 					try {
 						let x = onFulfilled(this.value);
-						promiseResolutionProcedure(nextPromise, x ,resolve, reject);
-					} catch (e) {
+						promiseResolutionProcedure(nextPromise, x, resolve, reject);
+					} catch(e) {
 						reject(e);
 					}
 				})
@@ -60,17 +59,17 @@ class Promise {
 						try {
 							let x = onFulfilled(this.value);
 							promiseResolutionProcedure(nextPromise, x, resolve, reject);
-						} catch(e) {
+						} catch (e) {
 							reject(e);
 						}
-					});
+					})
 				});
 				this.onRejectedCallback.push(() => {
 					setTimeout(() => {
 						try {
 							let x = onRejected(this.reason);
 							promiseResolutionProcedure(nextPromise, x, resolve, reject);
-						} catch(e) {
+						} catch (e) {
 							reject(e);
 						}
 					})
@@ -81,14 +80,14 @@ class Promise {
 	}
 }
 
-// 最难的promiseProcedure
+// 最难的promiseResolutionProcedure
 function promiseResolutionProcedure(promise, x, resolve, reject) {
-	if (promise === x) {
+	if (x === promise) {
 		reject(new TypeError('chaining cycle'));
 	}
 	if (x && typeof x === 'object' || typeof x === 'function') {
 		let used = false;
-		try  {
+		try {
 			let then = x.then;
 			if (typeof then === 'function') {
 				then.call(x, y => {
@@ -96,7 +95,7 @@ function promiseResolutionProcedure(promise, x, resolve, reject) {
 					used =true;
 					promiseResolutionProcedure(promise, y, resolve, reject);
 				}, reason => {
-					if (used) return;
+					if(used) return;
 					used = true;
 					reject(reason);
 				})
@@ -105,7 +104,7 @@ function promiseResolutionProcedure(promise, x, resolve, reject) {
 				used = true;
 				resolve(x);
 			}
-		} catch (e) {
+		} catch(e) {
 			if(used) return;
 			used = true;
 			reject(e);
